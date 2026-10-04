@@ -1,0 +1,39 @@
+name: Site update request
+description: Ask for a change to the Pack 1125 website (new event, correction, new page).
+title: "[Update] "
+labels: ["site update"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        This repository is **public** — anyone can read issues. Don't include Scouts' names,
+        phone numbers, or photos here. Email photos to admin@pack1125.org instead.
+  - type: dropdown
+    id: kind
+    attributes:
+      label: What kind of change?
+      options:
+        - New or changed event (Coming Up / calendar)
+        - Correction (wrong fact, typo, broken link)
+        - Leadership or contact change
+        - New page or section
+        - Something else
+    validations:
+      required: true
+  - type: input
+    id: pages
+    attributes:
+      label: Which page(s)?
+      placeholder: e.g. Home, Join, FAQ
+  - type: textarea
+    id: details
+    attributes:
+      label: What should it say?
+      description: Exact wording, dates, times, and places help us get it right the first time.
+    validations:
+      required: true
+  - type: input
+    id: when
+    attributes:
+      label: Needed by
+      placeholder: e.g. before the Nov 5 pack meeting
