@@ -382,3 +382,37 @@ figcaption { text-align: center; font-size: .85rem; color: var(--muted); margin-
 }
 .footer-nav a { color: #cfe0f2; text-decoration: none; font-size: .9rem; }
 .footer-nav a:hover, .footer-nav a[aria-current="page"] { color: var(--gold); text-decoration: underline; }
+
+/* ---------- FAQ accordion (native <details>, no JavaScript) ---------- */
+.faq-list { max-width: 820px; margin: 0 auto; display: grid; gap: .75rem; }
+.faq-item {
+  background: var(--white); border: 1px solid var(--line);
+  border-left: 5px solid var(--gold); border-radius: var(--radius);
+}
+.faq-item summary {
+  cursor: pointer; list-style: none; padding: 1rem 2.75rem 1rem 1.25rem; position: relative;
+  font-family: var(--font-head); font-weight: 700; color: var(--navy);
+}
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary::after {
+  content: "+"; position: absolute; right: 1.1rem; top: 50%; transform: translateY(-50%);
+  font-size: 1.4rem; color: var(--forest);
+}
+.faq-item[open] summary::after { content: "\2212"; }
+.faq-item summary:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
+.faq-item p { margin: 0; padding: 0 1.25rem 1.1rem; }
+
+/* ---------- Long-form text (privacy page) ---------- */
+.prose { max-width: 760px; }
+.prose h2 { margin-top: 1.75rem; }
+.prose ul { padding-left: 1.25rem; margin: 0 0 1em; }
+.prose li { margin-bottom: .4em; }
+
+/* ---------- Calendar fallback note ---------- */
+.cal-fallback { font-size: .9rem; color: var(--muted); text-align: center; margin-top: .75rem; }
+
+/* ---------- Small print ---------- */
+.fine-print { font-size: .85rem; color: var(--muted); }
+
+/* ---------- Row of buttons that wraps cleanly on phones ---------- */
+.btn-row { display: flex; flex-wrap: wrap; gap: .75rem; justify-content: center; }

@@ -39,7 +39,7 @@ const CONFIG = {
     name: "National Capital Area Council",
     short: "NCAC",
     org: "Scouting America",
-    url: "https://www.ncacbsa.org",
+    url: "https://ncacscouting.org",
     district: "Prince William District"
   },
 
