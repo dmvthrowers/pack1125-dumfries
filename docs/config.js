@@ -62,7 +62,7 @@ const CONFIG = {
 
   contact: {
     email: "admin@pack1125.org",
-    cubmasterPhone: "401-481-8721", // Clive Vella — published in pack-wide email Sep 2026
+    // Cubmaster phone removed from the public site (Oct 2026); families reach Clive via the pack email.
     myScouting: "https://my.scouting.org/create-account",
     financialAid: "https://ncacscouting.org/resources/financial-support/",
     financialAidForm: "https://247scouting.com/forms/082-FinancialSupport2026v2",

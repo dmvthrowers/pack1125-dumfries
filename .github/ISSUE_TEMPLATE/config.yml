@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Send photos for the Gallery
+    url: mailto:admin@pack1125.org?subject=Photos%20for%20the%20Pack%201125%20website
+    about: Email photos instead of attaching them here — this repository is public. Include the event name and confirm parent permission.
