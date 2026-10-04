@@ -18,3 +18,5 @@ jobs:
           python-version: "3.12"
       - name: Links, images, metadata, nav, sitemap
         run: python3 scripts/check_site.py
+      - name: JavaScript syntax
+        run: for f in docs/*.js; do node --check "$f"; done

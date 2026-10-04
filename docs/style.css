@@ -416,3 +416,7 @@ figcaption { text-align: center; font-size: .85rem; color: var(--muted); margin-
 
 /* ---------- Row of buttons that wraps cleanly on phones ---------- */
 .btn-row { display: flex; flex-wrap: wrap; gap: .75rem; justify-content: center; }
+
+/* ---------- Open volunteer role in the leader list ---------- */
+.leader-list .open-role { border-style: dashed; border-color: var(--gold-dark); background: var(--gold-soft); }
+.leader-list .open-role .who { color: var(--ink); }

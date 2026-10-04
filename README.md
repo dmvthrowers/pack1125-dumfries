@@ -69,6 +69,7 @@ Run before pushing (Python 3, no installs needed):
 
 ```sh
 python3 scripts/check_site.py
+for f in docs/*.js; do node --check "$f"; done   # JavaScript syntax (needs Node)
 ```
 
 It checks every page for broken internal links and images, missing alt text or image sizes,

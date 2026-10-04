@@ -45,8 +45,9 @@ const CONFIG = {
 
   leaders: [
     { role: "Cubmaster", name: "Clive Vella" },
-    { role: "Den Leader", name: "Brandon Rogers" },
     { role: "Committee Chair", name: "Dr. Neville Welch" },
+    { role: "Website & Technical Support", name: "Brandon Rogers" },
+    // Open: den leaders and committee members (recruiting as of Oct 2026)
   ],
 
   meeting: {
@@ -64,9 +65,9 @@ const CONFIG = {
     cubmasterPhone: "401-481-8721", // Clive Vella — published in pack-wide email Sep 2026
     myScouting: "https://my.scouting.org/create-account",
     financialAid: "https://ncacscouting.org/resources/financial-support/",
-    financialAidForm: "https://247scouting.com/forms/082-FinancialSupport2026v2"
-    // TBD: BeAScout.org pin URL
-    // TBD: ScoutBook unit page link
+    financialAidForm: "https://247scouting.com/forms/082-FinancialSupport2026v2",
+    beAScout: "https://beascout.scouting.org", // TBD: replace with the pack's own pin link
+    scoutbook: "https://advancements.scouting.org"
   },
 
   dues: {
