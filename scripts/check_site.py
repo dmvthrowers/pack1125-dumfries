@@ -4,6 +4,9 @@
 Checks every page for: broken internal links and image paths, missing alt text,
 images without width/height, invalid JSON-LD, missing <title>/description/canonical,
 a skip link, main#main-content, and that every page is in sitemap.xml and the nav/footer.
+Security: every page has the Content Security Policy and referrer meta tags, with no
+'unsafe-inline', no inline styles or event handlers, no executable inline scripts,
+and no plain-http:// links.
 Exits non-zero if anything fails.
 """
 import json, re, sys
@@ -20,17 +23,34 @@ class Page(HTMLParser):
     def __init__(self):
         super().__init__(); self.refs = []; self.imgs = []; self.ids = set()
         self.ld = []; self._ld = False; self.title = False; self.meta = {}; self.links = {}
+        self.csp = None; self.security = []   # security problems found while parsing
     def handle_starttag(self, tag, attrs):
+        # HTMLParser lower-cases tag and attribute names and handles any quoting style,
+        # so <SCRIPT>, ONCLICK= and single-quoted attributes are all caught.
         a = dict(attrs)
+        self._security(tag, a)
         if "id" in a: self.ids.add(a["id"])
         for k in ("href", "src"):
             if k in a and tag != "iframe": self.refs.append(a[k])
         if "srcset" in a: self.refs += [p.split()[0] for p in a["srcset"].split(",")]
         if tag == "img": self.imgs.append(a)
-        if tag == "script" and a.get("type") == "application/ld+json": self._ld = True; self.ld.append("")
+        if tag == "script" and (a.get("type") or "").lower() == "application/ld+json": self._ld = True; self.ld.append("")
         if tag == "title": self.title = True
-        if tag == "meta" and "name" in a: self.meta[a["name"]] = a.get("content", "")
+        if tag == "meta" and a.get("name"): self.meta[a["name"].lower()] = a.get("content", "")
         if tag == "link" and "rel" in a: self.links[a["rel"]] = a.get("href", "")
+    def _security(self, tag, a):
+        if tag == "meta" and (a.get("http-equiv") or "").lower() == "content-security-policy":
+            self.csp = a.get("content") or ""
+        if tag == "style": self.security.append("inline <style> block (blocked by CSP; use style.css)")
+        for k, v in a.items():
+            if k == "style": self.security.append(f"inline style on <{tag}> (blocked by CSP; use a class in style.css)")
+            elif k.startswith("on"): self.security.append(f"inline event handler {k}= on <{tag}> (blocked by CSP; use a .js file)")
+            elif k in ("href", "src", "action", "formaction") and v:
+                scheme = v.strip().lower()
+                if scheme.startswith("http:"): self.security.append(f"insecure http:// link: {v}")
+                elif scheme.startswith("javascript:"): self.security.append(f"javascript: URL on <{tag}>")
+        if tag == "script" and "src" not in a and (a.get("type") or "").lower() != "application/ld+json":
+            self.security.append("inline <script> (blocked by CSP; use a .js file)")
     def handle_endtag(self, tag):
         if tag == "script": self._ld = False
     def handle_data(self, d):
@@ -44,6 +64,11 @@ for page in pages:
     html = page.read_text(encoding="utf-8")
     p = Page(); p.feed(html); name = page.name
     err = lambda msg: errors.append(f"{name}: {msg}")
+    # --- security ---
+    if p.csp is None: err("missing Content-Security-Policy meta tag")
+    elif "unsafe-inline" in p.csp.lower() or "unsafe-eval" in p.csp.lower(): err("CSP allows unsafe-inline/unsafe-eval")
+    if not p.meta.get("referrer"): err("missing referrer meta tag")
+    for problem in p.security: err(problem)
     if not p.title: err("missing <title>")
     if not p.meta.get("description"): err("missing meta description")
     if "main-content" not in p.ids: err('missing <main id="main-content">')

@@ -7,9 +7,10 @@
   <meta name="description" content="Pack 1125 photo gallery: pack meetings, events, and adventures.">
   <meta name="author" content="Cub Scout Pack 1125">
   <meta name="robots" content="index, follow">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta name="theme-color" content="#003366">
-  <!-- CSP: only this site, Google Fonts, and the Google Calendar embed. Add new embeds here on every page. -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; frame-src https://calendar.google.com; connect-src 'self'; base-uri 'self'; form-action 'self'; object-src 'none'">
+  <!-- CSP: only this site, Google Fonts, and the Google Calendar embed; no inline scripts or styles. Add new embeds here on every page. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; frame-src https://calendar.google.com; connect-src 'self'; base-uri 'self'; form-action 'none'; object-src 'none'; upgrade-insecure-requests">
   <link rel="canonical" href="https://dmvthrowers.club/pack1125-dumfries/gallery.html">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Cub Scout Pack 1125">
@@ -162,7 +163,7 @@
           <figcaption>Recruiting Night</figcaption>
         </figure>
       </div>
-      <p class="center mt-2" style="color: var(--muted); font-size: .9rem;">
+      <p class="center mt-2 photo-note">
         Have photos to share? Send them to
         <a href="mailto:admin@pack1125.org">admin@pack1125.org</a>.
       </p>

@@ -430,3 +430,6 @@ figcaption { text-align: center; font-size: .85rem; color: var(--muted); margin-
 }
 @media (min-width: 720px) { .gallery-feature { max-width: 760px; } }
 @media (min-width: 720px) { .gallery-feature.wide { max-width: none; } }
+
+/* ---------- Gallery: "send us photos" note (was an inline style; CSP blocks inline styles) ---------- */
+.photo-note { color: var(--muted); font-size: .9rem; }
