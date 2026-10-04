@@ -11,9 +11,11 @@ No build step, no frameworks: plain HTML/CSS/JS in `docs/`, served by GitHub Pag
 
 ```
 README.md            — this file (not published)
+CONTRIBUTING.md      — how to propose a change (pull requests, browser editing, photo rules)
 LICENSE              — code license + content/trademark exclusions
 scripts/check_site.py — site checker (links, images, metadata, nav, sitemap)
 .github/workflows/   — runs the checker on every push and pull request
+.github/             — PR template, CODEOWNERS (reviewers), issue form for update requests
 docs/                — everything in here is the public website
 ├── index.html       — home: hero, four pillars, quick info, coming up
 ├── about.html       — what Cub Scouting is, about the pack, leadership
@@ -33,6 +35,18 @@ docs/                — everything in here is the public website
 ├── robots.txt, sitemap.xml
 └── .nojekyll        — tells GitHub Pages to serve files as-is
 ```
+
+## Making changes
+
+All changes go through pull requests. See [CONTRIBUTING.md](CONTRIBUTING.md), including how
+to edit right in the browser. The **Check site** test runs on every PR.
+
+**Protecting `main`** (repo owner, one time): Settings → Rules → Rulesets → New branch ruleset.
+- Name: `Protect main`. Enforcement: **Active**. Target branches: **Include default branch**.
+- Bypass list: add **Repository admin** (so the owner can still fix an emergency).
+- Turn on: **Restrict deletions**, **Block force pushes**, **Require a pull request before
+  merging** (1 required approval once a second reviewer is a collaborator; 0 until then),
+  and **Require status checks to pass** → add `check`.
 
 ## Editing
 
