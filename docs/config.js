@@ -71,8 +71,8 @@ const CONFIG = {
   },
 
   dues: {
-    perScoutPerYear: 95,
-    display: "$95 per Scout per year",
+    perScoutPerYear: null, // TBA for this year
+    display: "To be announced",
     national: 85,   // Scouting America registration fee
     ncac: 80,       // NCAC participation fee — first-year Cub Scouts only
     adult: 65,      // reduced adult registration fee
@@ -88,11 +88,11 @@ const CONFIG = {
   },
 
   activities: [
-    { name: "Popcorn fundraiser", when: "August–October" },
-    { name: "Fall Camp Day — Prince William Forest Park", when: "October 3, 2026" },
-    { name: "Pinewood Derby", when: "Planned — dates TBD" },
-    { name: "Overnight camp (spring)", when: "May 14–16, 2027" },
-    { name: "Recruiting drive", when: "Ongoing" }
+    { name: "Trick or Treat", when: "October 31, 2026 (location TBD)" },
+    { name: "Pack Meeting (Bottle Rocket STEM)", when: "November 5, 2026" },
+    { name: "Holiday Potluck — Covington-Harper ES", when: "December 17, 2026" },
+    { name: "Spring Overnight Campout — Camp Snyder", when: "May 14–16, 2027" },
+    { name: "Fall Camp Day — Prince William Forest Park", when: "October 3, 2026 (held)" }
   ],
 
   calendar: {
