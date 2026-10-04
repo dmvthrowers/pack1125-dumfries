@@ -460,3 +460,6 @@ figcaption { text-align: center; font-size: .85rem; color: var(--muted); margin-
 .page-head { display: flex; align-items: center; min-height: 15.5rem; }
 .page-head > .wrap { width: 100%; }
 @media (min-width: 720px) { .page-head { min-height: 12.5rem; } }
+
+/* ---------- Gallery: "send us photos" note (was an inline style; CSP blocks inline styles) ---------- */
+.photo-note { color: var(--muted); font-size: .9rem; }
