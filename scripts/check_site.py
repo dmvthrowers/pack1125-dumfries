@@ -24,7 +24,7 @@ class Page(HTMLParser):
     def __init__(self):
         super().__init__(); self.refs = []; self.imgs = []; self.ids = set()
         self.ld = []; self._ld = False; self.title = False; self.meta = {}; self.links = {}
-        self.csp = None; self.security = []   # security problems found while parsing
+        self.csp = None; self.security = []; self.svgs = []   # security problems found while parsing
     def handle_starttag(self, tag, attrs):
         # HTMLParser lower-cases tag and attribute names and handles any quoting style,
         # so <SCRIPT>, ONCLICK= and single-quoted attributes are all caught.
@@ -35,6 +35,7 @@ class Page(HTMLParser):
             if k in a and tag != "iframe": self.refs.append(a[k])
         if "srcset" in a: self.refs += [p.split()[0] for p in a["srcset"].split(",")]
         if tag == "img": self.imgs.append(a)
+        if tag == "svg": self.svgs.append(a)
         if tag == "script" and (a.get("type") or "").lower() == "application/ld+json": self._ld = True; self.ld.append("")
         if tag == "title": self.title = True
         if tag == "meta" and a.get("name"): self.meta[a["name"].lower()] = a.get("content", "")
@@ -80,6 +81,8 @@ for page in pages:
     for img in p.imgs:
         if "alt" not in img: err(f"img without alt: {img.get('src')}")
         if not (img.get("width") and img.get("height")): err(f"img without width/height: {img.get('src')}")
+    for svg in p.svgs:   # without its own size, an inline SVG fills the page if the stylesheet is stale or blocked
+        if not (svg.get("width") and svg.get("height")): err("inline <svg> without width/height attributes")
     for ref in p.refs:
         u = urlparse(ref)
         if u.scheme in ("http", "https", "mailto", "tel", "data") or ref.startswith("#"):
