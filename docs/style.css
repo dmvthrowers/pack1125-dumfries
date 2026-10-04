@@ -429,3 +429,4 @@ figcaption { text-align: center; font-size: .85rem; color: var(--muted); margin-
   border-radius: var(--radius); border: 1px solid var(--line);
 }
 @media (min-width: 720px) { .gallery-feature { max-width: 760px; } }
+@media (min-width: 720px) { .gallery-feature.wide { max-width: none; } }

@@ -20,7 +20,7 @@ docs/                — everything in here is the public website
 ├── join.html        — who can join, 3 steps, dues, uniform
 ├── dens.html        — Lion → Arrow of Light den cards
 ├── calendar.html    — Google Calendar embed + meeting rhythm
-├── gallery.html     — photo placeholders (replace with real photos)
+├── gallery.html     — photo sets (images/gallery/) + "Coming Soon" placeholders
 ├── resources.html   — NCAC, Scoutbook Plus, financial aid, Scout Shop, training links
 ├── faq.html         — new-family FAQ (native <details> accordion + FAQPage JSON-LD)
 ├── contact.html     — contact card
