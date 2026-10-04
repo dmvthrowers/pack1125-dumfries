@@ -420,3 +420,12 @@ figcaption { text-align: center; font-size: .85rem; color: var(--muted); margin-
 /* ---------- Open volunteer role in the leader list ---------- */
 .leader-list .open-role { border-style: dashed; border-color: var(--gold-dark); background: var(--gold-soft); }
 .leader-list .open-role .who { color: var(--ink); }
+
+/* ---------- Gallery feature photos ---------- */
+.gallery-feature { display: grid; gap: 1.25rem; grid-template-columns: 1fr 1fr; margin-bottom: 1rem; }
+.gallery-feature figure { margin: 0; }
+.gallery-feature img {
+  display: block; width: 100%; height: auto;
+  border-radius: var(--radius); border: 1px solid var(--line);
+}
+@media (min-width: 720px) { .gallery-feature { max-width: 760px; } }
