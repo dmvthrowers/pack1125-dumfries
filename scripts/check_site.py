@@ -3,7 +3,8 @@
 
 Checks every page for: broken internal links and image paths, missing alt text,
 images without width/height, invalid JSON-LD, missing <title>/description/canonical,
-a skip link, main#main-content, and that every page is in sitemap.xml and the nav/footer.
+a skip link, main#main-content, that every page is in sitemap.xml and the nav/footer,
+and that the header, footer, and closing scripts are identical on every page.
 Exits non-zero if anything fails.
 """
 import json, re, sys
@@ -76,6 +77,21 @@ for page in pages:
         if other.name not in ("privacy.html",) and f'href="{other.name}"' not in html.split("<main")[0] and name != "404.html":
             err(f"main nav missing {other.name}")
         if f'{other.name}"' not in footer: err(f"footer missing {other.name}")
+
+# Consistency: header (logo, burger, menu), footer, and closing scripts must be identical on
+# every page, ignoring which link is marked current and 404.html's absolute /pack1125-dumfries/ paths.
+def shared_block(html, start, end):
+    i = html.find(start); j = html.find(end, i)
+    chunk = html[i:j + len(end)] if i >= 0 and j >= 0 else ""
+    chunk = re.sub(r' (class="active"|aria-current="page")', "", chunk).replace(BASE, "")
+    return re.sub(r"\s+", " ", chunk).strip()
+reference = (DOCS / "about.html").read_text(encoding="utf-8")
+for label, start, end in (("header", "<header", "</header>"), ("footer", "<footer", "</footer>"),
+                          ("closing scripts", "</footer>", "</html>")):
+    want = shared_block(reference, start, end)
+    for page in pages:
+        if shared_block(page.read_text(encoding="utf-8"), start, end) != want:
+            errors.append(f"{page.name}: {label} differs from about.html (copy it from about.html)")
 
 for f in DOCS.rglob("*"):
     if f.is_file() and f.stat().st_size > 500_000: errors.append(f"{f.relative_to(DOCS)}: {f.stat().st_size // 1024} KB (keep files under 500 KB)")

@@ -453,3 +453,10 @@ figcaption { text-align: center; font-size: .85rem; color: var(--muted); margin-
 .footer-github a { color: #cfe0f2; display: inline-flex; align-items: center; gap: .4rem; min-height: 44px; }
 .footer-github a:hover { color: var(--gold); }
 .footer-github svg { width: 1.1em; height: 1.1em; fill: currentColor; }
+
+/* ---------- Consistent page banners ----------
+   Same banner height on every inner page (the home page uses the larger .hero on purpose).
+   Content is centered vertically so a one-line subtitle doesn't make the title jump. */
+.page-head { display: flex; align-items: center; min-height: 15.5rem; }
+.page-head > .wrap { width: 100%; }
+@media (min-width: 720px) { .page-head { min-height: 12.5rem; } }
