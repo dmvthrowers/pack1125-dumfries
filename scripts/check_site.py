@@ -4,6 +4,9 @@
 Checks every page for: broken internal links and image paths, missing alt text,
 images without width/height, invalid JSON-LD, missing <title>/description/canonical,
 a skip link, main#main-content, and that every page is in sitemap.xml and the nav/footer.
+Security: every page has the Content Security Policy and referrer meta tags, with no
+'unsafe-inline', no inline styles or event handlers, no executable inline scripts,
+and no plain-http:// links.
 Exits non-zero if anything fails.
 """
 import json, re, sys
@@ -44,6 +47,16 @@ for page in pages:
     html = page.read_text(encoding="utf-8")
     p = Page(); p.feed(html); name = page.name
     err = lambda msg: errors.append(f"{name}: {msg}")
+    # --- security ---
+    csp = re.search(r'<meta http-equiv="Content-Security-Policy" content="([^"]+)"', html)
+    if not csp: err("missing Content-Security-Policy meta tag")
+    elif "unsafe-inline" in csp.group(1) or "unsafe-eval" in csp.group(1): err("CSP allows unsafe-inline/unsafe-eval")
+    if 'name="referrer"' not in html: err("missing referrer meta tag")
+    if re.search(r'\sstyle="', html) or "<style" in html: err("inline style (blocked by CSP; use a class in style.css)")
+    if re.search(r'\son[a-z]+="', html): err("inline event handler (blocked by CSP; use a .js file)")
+    for m in re.finditer(r"<script(?![^>]*\bsrc=)([^>]*)>", html):
+        if 'application/ld+json' not in m.group(1): err("inline <script> (blocked by CSP; use a .js file)")
+    for m in re.finditer(r'(?:href|src)="(http://[^"]+)"', html): err(f"insecure http:// link: {m.group(1)}")
     if not p.title: err("missing <title>")
     if not p.meta.get("description"): err("missing meta description")
     if "main-content" not in p.ids: err('missing <main id="main-content">')
