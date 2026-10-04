@@ -365,3 +365,20 @@ figcaption { text-align: center; font-size: .85rem; color: var(--muted); margin-
   .pillars.cards { grid-template-columns: repeat(4, 1fr); }
   .cards.three { grid-template-columns: repeat(3, 1fr); }
 }
+
+/* ---------- Accessibility: skip link (visible on keyboard focus only) ---------- */
+.skip-link {
+  position: absolute; left: .5rem; top: -3rem; z-index: 100;
+  background: var(--gold); color: var(--navy-deep);
+  padding: .6rem 1rem; font-weight: 700; text-decoration: none;
+  border-radius: 8px;
+}
+.skip-link:focus { top: .5rem; }
+
+/* ---------- Footer page links ---------- */
+.footer-nav ul {
+  list-style: none; margin: 0 0 1rem; padding: 0;
+  display: flex; flex-wrap: wrap; justify-content: center; gap: .25rem 1rem;
+}
+.footer-nav a { color: #cfe0f2; text-decoration: none; font-size: .9rem; }
+.footer-nav a:hover, .footer-nav a[aria-current="page"] { color: var(--gold); text-decoration: underline; }

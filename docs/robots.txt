@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /README.md
+
+Sitemap: https://dmvthrowers.github.io/pack1125-dumfries/sitemap.xml
