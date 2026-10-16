@@ -32,7 +32,8 @@ const CONFIG = {
 
   charter: {
     org: "Future Kings, Inc.",
-    note: "Dumfries-based nonprofit organization dedicated to youth leadership, character development, and positive community impact"
+    note: "Dumfries nonprofit running STEM programs for young people since 2010 (grades 6–12: cybersecurity, biomedical science, drone engineering, game design)",
+    url: "https://www.future-kings.org/"
   },
 
   council: {
@@ -45,7 +46,7 @@ const CONFIG = {
 
   leaders: [
     { role: "Cubmaster", name: "Clive Vella" },
-    { role: "Committee Chair", name: "Dr. Neville Welch" },
+    { role: "Committee Chair", name: "Andy Tainter" },
     { role: "Website & Technical Support", name: "Brandon Rogers" },
     // Open: den leaders and committee members (recruiting as of Oct 2026)
   ],
