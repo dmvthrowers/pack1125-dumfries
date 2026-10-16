@@ -363,6 +363,12 @@ figcaption { text-align: center; font-size: .85rem; color: var(--muted); margin-
 
 /* ---------- Utilities ---------- */
 .center { text-align: center; }
+/* Chartered organization logo (Future Kings, Inc.; their trademark, not covered by this site's license) */
+.charter-logo { display: inline-block; line-height: 0; }
+.charter-logo img { width: 180px; height: auto; max-width: 100%; }
+.charter-note { display: flex; flex-wrap: wrap; align-items: center; gap: .75rem 1.25rem; }
+.charter-note p { margin: 0; flex: 1 1 14rem; }
+.card .charter-logo { margin-bottom: .75rem; }
 .mt-2 { margin-top: 2rem; }
 .notice {
   background: var(--gold-soft);
