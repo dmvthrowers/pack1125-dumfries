@@ -491,7 +491,11 @@ figcaption { text-align: center; font-size: .85rem; color: var(--muted); margin-
 /* Footer link to the site's source on GitHub. */
 .footer-logos { margin: .6rem 0 .2rem !important; }
 .footer-logos a { display: inline-block; padding: 12px; line-height: 0; }   /* padding keeps the trademark's clear space */
+.footer-logos { display: flex; justify-content: center; align-items: center; gap: 1.25rem; }
 .footer-logos img { width: 64px; height: 64px; }
+/* The emblem's blue would vanish on navy, so it sits on a white tile (the artwork itself is unchanged) */
+.footer-logos .emblem-tile { background: #fff; border-radius: 10px; padding: 10px 15px; }
+.footer-logos .emblem-tile img { width: 50px; height: 56px; }
 /* Scouting America / Cub Scouts / NCAC marks: official artwork, shown unaltered with clear space around them */
 .affiliation-logos { display: flex; flex-wrap: wrap; align-items: center; gap: 2rem 2.5rem; margin: 1.25rem 0; }
 .affiliation-logos a { display: inline-block; line-height: 0; padding: 8px; }
