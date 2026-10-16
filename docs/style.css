@@ -197,6 +197,19 @@ a:hover { color: var(--forest); }
 .btn-navy { background: var(--navy); color: #fff; }
 .btn-navy:hover { background: var(--navy-deep); color: #fff; }
 
+/* ---------- Start-here buttons under the home hero ---------- */
+.quick-links { background: var(--navy-deep); padding: 1.25rem 0; }
+.quick-links ul { list-style: none; margin: 0; padding: 0; display: grid; gap: .75rem; grid-template-columns: 1fr 1fr; }
+.quick-links a {
+  display: flex; flex-direction: column; justify-content: center; gap: .25rem; min-height: 5.5rem; height: 100%;
+  padding: .9rem 1rem; border-radius: var(--radius); background: var(--white); color: var(--navy);
+  text-decoration: none; border: 2px solid transparent;
+}
+.quick-links a:hover, .quick-links a:focus-visible { border-color: var(--gold); color: var(--navy); }
+.quick-links strong { font-family: var(--font-head); font-size: 1.05rem; line-height: 1.2; }
+.quick-links span { font-size: .875rem; color: var(--muted); line-height: 1.35; }
+@media (min-width: 860px) { .quick-links ul { grid-template-columns: repeat(4, 1fr); } }
+
 /* ---------- Sections ---------- */
 .section { padding: 2.75rem 0; }
 .section-alt {
