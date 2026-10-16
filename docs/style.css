@@ -3,7 +3,7 @@
    Static theme. Mobile-first, no frameworks, no build step.
    Palette: navy #003366 · gold #FFCC00 · red #CE1126 (accents)
             forest #0A4F39 · cream #FFFEF7
-   Type: Montserrat (headings), Inter (body) via Google Fonts
+   Type: Montserrat (headings), Inter (body), self-hosted in fonts/
    ============================================================ */
 
 :root {
@@ -24,6 +24,17 @@
   --shadow: 0 10px 30px -18px rgba(0, 51, 102, .35);
   --font-head: 'Montserrat', 'Segoe UI', system-ui, sans-serif;
   --font-body: 'Inter', 'Segoe UI', system-ui, sans-serif;
+}
+
+/* Self-hosted fonts (variable, Latin subset; SIL Open Font License, see fonts/LICENSE-*.txt).
+   Nothing is loaded from outside this site. */
+@font-face {
+  font-family: 'Inter'; font-style: normal; font-weight: 100 900; font-display: swap;
+  src: url(fonts/inter-latin.woff2) format('woff2');
+}
+@font-face {
+  font-family: 'Montserrat'; font-style: normal; font-weight: 100 900; font-display: swap;
+  src: url(fonts/montserrat-latin.woff2) format('woff2');
 }
 
 *, *::before, *::after { box-sizing: border-box; }

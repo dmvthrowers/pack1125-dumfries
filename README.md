@@ -65,8 +65,8 @@ to edit right in the browser. The **Check site** test runs on every PR.
   JSON-LD breadcrumb. Update them when you add a page. If the site moves to a new address
   (for example `pack1125.org`), search-and-replace `https://dmvthrowers.club/pack1125-dumfries/`
   across `docs/`, and update the `/pack1125-dumfries/` paths in `404.html`.
-- **Content Security Policy:** each page has a CSP `<meta>` tag allowing only this site,
-  Google Fonts, and the Google Calendar embed. Adding a new embed (form, video, map) means
+- **Content Security Policy:** each page has a CSP `<meta>` tag allowing only this site
+  and the Google Calendar embed (fonts are self-hosted in `docs/fonts/`). Adding a new embed (form, video, map) means
   adding its domain to that tag on every page that uses it.
 - **Images:** add both a `.png` and a `.webp`, wrap them in `<picture>`, and always set
   `width`, `height`, and descriptive `alt` text. Keep files under 500 KB.
