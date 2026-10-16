@@ -34,8 +34,11 @@ reuse and remain the property of their respective owners:
    docs/images/icon-*, docs/images/og-pack1125.jpg, docs/favicon.ico).
    (c) 2026 Cub Scout Pack 1125. All rights reserved.
 
-3. Scouting America names, marks, and insignia, including the Cub Scout rank
-   badges (Bobcat, Lion, Tiger, Wolf, Bear, Arrow of Light) in docs/images/.
+3. Scouting America names, marks, and insignia, including the Scouting America
+   emblem (docs/images/logo-scouting-america.*), the Cub Scouts logo
+   (docs/images/logo-cub-scouts*), the Scouting America / National Capital Area
+   Council logo (docs/images/logo-ncac.*), and the Cub Scout rank badges
+   (Bobcat, Lion, Tiger, Wolf, Bear, Arrow of Light) in docs/images/.
    "Scouting America," "Cub Scouts," and the rank insignia are trademarks or
    registered trademarks of Scouting America (Boy Scouts of America), used here
    by a chartered unit to describe its program. Their use here does not grant

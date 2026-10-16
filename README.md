@@ -35,7 +35,7 @@ docs/                — everything in here is the public website
 ├── style.css        — full theme (navy/gold/forest/cream)
 ├── config.js        — pack facts, mobile nav toggle, click-to-load calendar
 ├── fonts/           — self-hosted Inter + Montserrat (WOFF2) and their licenses
-├── images/          — pack emblem, rank badges (PNG + WebP), icons, social card
+├── images/          — pack emblem, rank badges, Cub Scouts / NCAC / Future Kings logos (PNG + WebP), icons, social card
 ├── favicon.ico, site.webmanifest
 ├── robots.txt       — only used if the site moves to its own domain (see the file)
 ├── sitemap.xml      — one <lastmod> per page; matches each page's "Page updated" line
