@@ -32,7 +32,8 @@ const CONFIG = {
 
   charter: {
     org: "Future Kings, Inc.",
-    note: "Dumfries-based nonprofit organization dedicated to youth leadership, character development, and positive community impact"
+    note: "Dumfries-based nonprofit; the pack's chartered organization",
+    url: "https://www.future-kings.org/"
   },
 
   council: {
@@ -45,7 +46,7 @@ const CONFIG = {
 
   leaders: [
     { role: "Cubmaster", name: "Clive Vella" },
-    { role: "Committee Chair", name: "Dr. Neville Welch" },
+    { role: "Committee Chair", name: "Andy Tainter" },
     { role: "Website & Technical Support", name: "Brandon Rogers" },
     // Open: den leaders and committee members (recruiting as of Oct 2026)
   ],
@@ -56,8 +57,9 @@ const CONFIG = {
     time: "6:30–7:30 PM",
     season: "October–January",
     venue: "Covington-Harper Elementary School auditorium",
-    town: "Dumfries VA"
-    // NOTE: venue may change — keep the address as school name + Dumfries VA only.
+    town: "Dumfries VA",
+    address: "2500 River Heritage Blvd, Dumfries VA 22026"
+    // Public school address, shown on the site since Oct 2026. If the venue changes, update every page that lists it.
   },
 
   contact: {

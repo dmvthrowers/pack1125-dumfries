@@ -23,6 +23,7 @@ docs/                — everything in here is the public website
 ├── index.html       — home: hero, four pillars, quick info, coming up
 ├── about.html       — what Cub Scouting is, about the pack, leadership
 ├── join.html        — who can join, 3 steps, dues, uniform
+├── families.html    — new families: first meeting, first month, forms, uniform basics
 ├── dens.html        — Lion → Arrow of Light den cards
 ├── calendar.html    — Google Calendar (loads on click) + meeting rhythm
 ├── gallery.html     — photo sets (images/gallery/) + "Coming Soon" placeholders
