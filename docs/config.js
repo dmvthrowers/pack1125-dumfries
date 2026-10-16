@@ -71,8 +71,8 @@ const CONFIG = {
   },
 
   dues: {
-    perScoutPerYear: null, // TBA for this year
-    display: "To be announced",
+    perScoutPerYear: 100,
+    display: "$100 per year",
     national: 85,   // Scouting America registration fee
     ncac: 80,       // NCAC participation fee — first-year Cub Scouts only
     adult: 65,      // reduced adult registration fee
