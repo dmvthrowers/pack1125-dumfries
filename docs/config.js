@@ -32,7 +32,7 @@ const CONFIG = {
 
   charter: {
     org: "Future Kings, Inc.",
-    note: "Dumfries nonprofit running STEM programs for young people since 2010 (grades 6–12: cybersecurity, biomedical science, drone engineering, game design)",
+    note: "Dumfries-based nonprofit; the pack's chartered organization",
     url: "https://www.future-kings.org/"
   },
 
