@@ -12,6 +12,7 @@ from html.parser import HTMLParser
 from pathlib import Path
 
 DOCS = Path(__file__).resolve().parent.parent / "docs"
+SITE = "https://dmvthrowers.club/pack1125-dumfries/"   # the site's own pages; check_site.py covers those
 UA = "Mozilla/5.0 (compatible; Pack1125-link-check; +https://github.com/dmvthrowers/pack1125-dumfries)"
 GONE = {404, 410}
 
@@ -20,7 +21,7 @@ class Links(HTMLParser):
         super().__init__(); self.urls = set()
     def handle_starttag(self, tag, attrs):
         for k, v in attrs:
-            if k in ("href", "src", "data-src") and v and v.startswith(("http://", "https://")):
+            if k in ("href", "src", "data-src") and v and v.startswith(("http://", "https://")) and not v.startswith(SITE):
                 self.urls.add(v)
 
 def fetch(url):
