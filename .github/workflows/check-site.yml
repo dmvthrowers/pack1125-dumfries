@@ -22,10 +22,14 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
+          fetch-depth: 0       # full history, so the lastmod check can compare with the base branch
       - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
         with:
           python-version: "3.12"
       - name: Links, images, metadata, nav, sitemap, security rules
+        env:
+          # On pull requests, pages changed since the base branch must have a newer sitemap lastmod.
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
         run: python3 scripts/check_site.py
       - name: JavaScript syntax
         run: for f in docs/*.js; do node --check "$f"; done

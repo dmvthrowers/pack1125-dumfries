@@ -9,8 +9,8 @@
   <meta name="robots" content="index, follow">
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta name="theme-color" content="#003366">
-  <!-- CSP: only this site and the Google Calendar embed (fonts are self-hosted); no inline scripts or styles. Add new embeds here on every page. -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self' data:; frame-src https://calendar.google.com; connect-src 'self'; base-uri 'self'; form-action 'none'; object-src 'none'; upgrade-insecure-requests">
+  <!-- CSP: only this site (fonts are self-hosted; the Google Calendar embed is allowed on calendar.html only); no inline scripts or styles. Add a new embed only on the page that uses it. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self' data:; frame-src 'none'; connect-src 'self'; base-uri 'self'; form-action 'none'; object-src 'none'; upgrade-insecure-requests">
   <link rel="canonical" href="https://dmvthrowers.club/pack1125-dumfries/">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Cub Scout Pack 1125">
@@ -30,7 +30,7 @@
   <link rel="icon" type="image/png" sizes="32x32" href="images/icon-32.png">
   <link rel="apple-touch-icon" href="images/icon-180.png">
   <link rel="manifest" href="site.webmanifest">
-  <!-- JSON-LD for search engines; not rendered. -->
+  <!-- JSON-LD for search engines; not rendered. Event entries mirror "Coming Up": remove each one once its date passes (the checker warns). -->
   <script type="application/ld+json">
 [
   {
@@ -66,6 +66,117 @@
       "@type": "Organization",
       "name": "National Capital Area Council, Scouting America",
       "url": "https://ncacscouting.org"
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Event",
+    "name": "Pack 1125 Fall Camp Day",
+    "startDate": "2026-11-01T10:00:00-05:00",
+    "endDate": "2026-11-01T16:30:00-05:00",
+    "eventStatus": "https://schema.org/EventScheduled",
+    "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+    "location": {
+      "@type": "Place",
+      "name": "Prince William Forest Park",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Triangle",
+        "addressRegion": "VA",
+        "addressCountry": "US"
+      }
+    },
+    "description": "Cub Scout camp day for Pack 1125 families. Rain date for the October 3 camp day.",
+    "image": [
+      "https://dmvthrowers.club/pack1125-dumfries/images/og-pack1125.jpg"
+    ],
+    "organizer": {
+      "@type": "Organization",
+      "name": "Cub Scout Pack 1125",
+      "url": "https://dmvthrowers.club/pack1125-dumfries/"
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Event",
+    "name": "Pack 1125 Pack Meeting: Bottle Rocket STEM",
+    "startDate": "2026-11-05T18:30:00-05:00",
+    "endDate": "2026-11-05T19:30:00-05:00",
+    "eventStatus": "https://schema.org/EventScheduled",
+    "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+    "location": {
+      "@type": "Place",
+      "name": "Covington-Harper Elementary School",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Dumfries",
+        "addressRegion": "VA",
+        "addressCountry": "US"
+      }
+    },
+    "description": "Monthly pack meeting for all dens, with a bottle rocket STEM activity. New families welcome.",
+    "image": [
+      "https://dmvthrowers.club/pack1125-dumfries/images/og-pack1125.jpg"
+    ],
+    "organizer": {
+      "@type": "Organization",
+      "name": "Cub Scout Pack 1125",
+      "url": "https://dmvthrowers.club/pack1125-dumfries/"
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Event",
+    "name": "Pack 1125 Holiday Potluck",
+    "startDate": "2026-12-17T18:30:00-05:00",
+    "eventStatus": "https://schema.org/EventScheduled",
+    "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+    "location": {
+      "@type": "Place",
+      "name": "Covington-Harper Elementary School",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Dumfries",
+        "addressRegion": "VA",
+        "addressCountry": "US"
+      }
+    },
+    "description": "Holiday potluck for Pack 1125 Scouts and families.",
+    "image": [
+      "https://dmvthrowers.club/pack1125-dumfries/images/og-pack1125.jpg"
+    ],
+    "organizer": {
+      "@type": "Organization",
+      "name": "Cub Scout Pack 1125",
+      "url": "https://dmvthrowers.club/pack1125-dumfries/"
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Event",
+    "name": "Pack 1125 Spring Overnight Campout",
+    "startDate": "2027-05-14",
+    "endDate": "2027-05-16",
+    "eventStatus": "https://schema.org/EventScheduled",
+    "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+    "location": {
+      "@type": "Place",
+      "name": "Camp William B. Snyder",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Haymarket",
+        "addressRegion": "VA",
+        "addressCountry": "US"
+      }
+    },
+    "description": "Overnight family campout for Pack 1125.",
+    "image": [
+      "https://dmvthrowers.club/pack1125-dumfries/images/og-pack1125.jpg"
+    ],
+    "organizer": {
+      "@type": "Organization",
+      "name": "Cub Scout Pack 1125",
+      "url": "https://dmvthrowers.club/pack1125-dumfries/"
     }
   }
 ]
@@ -210,6 +321,7 @@
       <p>Full schedule on the <a href="calendar.html">calendar</a> — dates and locations may change.</p>
     </div>
   </section>
+  <p class="page-updated">Page updated <time datetime="2026-10-16">October 16, 2026</time></p>
 </main>
 
 <footer class="site-footer">

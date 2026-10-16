@@ -8,9 +8,12 @@ and that the header, footer, and closing scripts are identical on every page.
 Security: every page has the Content Security Policy and referrer meta tags, with no
 'unsafe-inline', no inline styles or event handlers, no executable inline scripts,
 and no plain-http:// links.
+Freshness: each page's "Page updated" date matches its sitemap.xml <lastmod>; with
+BASE_SHA=<commit> set (CI does this on pull requests), every page changed since that
+commit must have a newer <lastmod> (or one dated today). Event JSON-LD dated in the past prints a warning.
 Exits non-zero if anything fails.
 """
-import json, re, sys
+import datetime, json, os, re, subprocess, sys
 from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import urlparse, unquote
@@ -19,6 +22,7 @@ DOCS = Path(__file__).resolve().parent.parent / "docs"
 BASE = "/pack1125-dumfries/"          # GitHub Pages project path, used by 404.html
 SITE = "https://dmvthrowers.club" + BASE
 errors = []
+warnings = []
 
 class Page(HTMLParser):
     def __init__(self):
@@ -100,6 +104,22 @@ for page in pages:
         want = SITE if name == "index.html" else SITE + name
         if canon != want: err(f"canonical is {canon!r}, expected {want!r}")
         if f"<loc>{want}</loc>" not in sitemap: err("not listed in sitemap.xml")
+    if name != "404.html":   # "Page updated" date must match the sitemap
+        m = re.search(r'<p class="page-updated">Page updated <time datetime="(\d{4}-\d{2}-\d{2})">([^<]+)</time></p>', html)
+        lm = re.search(rf"<loc>{re.escape(want)}</loc><lastmod>([^<]+)</lastmod>", sitemap)
+        if not m: err('missing <p class="page-updated"> line before </main>')
+        elif lm and m.group(1) != lm.group(1): err(f"'Page updated' date {m.group(1)} differs from sitemap lastmod {lm.group(1)}")
+        elif m:
+            d = datetime.date.fromisoformat(m.group(1))
+            if m.group(2) != f"{d:%B} {d.day}, {d.year}": err(f"'Page updated' text {m.group(2)!r} doesn't match {m.group(1)}")
+    today = datetime.date.today().isoformat()
+    for block in p.ld:
+        try: items = json.loads(block)
+        except ValueError: continue
+        for item in items if isinstance(items, list) else [items]:
+            if isinstance(item, dict) and item.get("@type") == "Event":
+                end = str(item.get("endDate") or item.get("startDate", ""))[:10]
+                if end and end < today: warnings.append(f"{name}: Event {item.get('name')!r} ended {end}; remove it from the JSON-LD")
     footer = html[html.find("<footer"):]
     for other in content_pages:
         if other.name not in ("privacy.html",) and f'href="{other.name}"' not in html.split("<main")[0] and name != "404.html":
@@ -124,6 +144,25 @@ for label, start, end in (("header", "<header", "</header>"), ("footer", "<foote
 for f in DOCS.rglob("*"):
     if f.is_file() and f.stat().st_size > 500_000: errors.append(f"{f.relative_to(DOCS)}: {f.stat().st_size // 1024} KB (keep files under 500 KB)")
 
+# Changed pages need a newer sitemap <lastmod> (and so a newer "Page updated" date).
+base = os.environ.get("BASE_SHA")
+if base:
+    def lastmods(text): return dict(re.findall(r"<loc>([^<]+)</loc><lastmod>([^<]+)</lastmod>", text))
+    try:
+        changed = subprocess.run(["git", "diff", "--name-only", base, "--", "docs/"], capture_output=True, text=True, check=True).stdout.split()
+        old = lastmods(subprocess.run(["git", "show", f"{base}:docs/sitemap.xml"], capture_output=True, text=True, check=True).stdout)
+    except subprocess.CalledProcessError as e:
+        errors.append(f"lastmod check: git failed ({e.stderr.strip()})"); changed, old = [], {}
+    new = lastmods(sitemap)
+    for f in changed:
+        page = Path(f).name
+        if not f.endswith(".html") or page == "404.html" or "/" in f[len("docs/"):]: continue
+        url = SITE if page == "index.html" else SITE + page
+        recent = (datetime.date.today() - datetime.timedelta(days=1)).isoformat()   # same-day edits are fine
+        if url in old and new.get(url) == old[url] and old[url] < recent:
+            errors.append(f"{page}: changed but sitemap lastmod is still {old[url]} (bump it and the 'Page updated' date)")
+
+for w in warnings: print("warning:", w)
 if errors:
     print(f"{len(errors)} problem(s):"); [print("  -", e) for e in errors]; sys.exit(1)
 print(f"OK: {len(pages)} pages checked, no problems found.")
