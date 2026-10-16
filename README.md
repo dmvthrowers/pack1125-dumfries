@@ -4,8 +4,9 @@ Static website for **Cub Scout Pack 1125 — "Leaders and Trailblazers"**, Dumfr
 
 **Live site:** https://dmvthrowers.club/pack1125-dumfries/
 
-No build step, no frameworks: plain HTML/CSS/JS in `docs/`, served by GitHub Pages
-(Settings → Pages → branch `main`, folder `/docs`). Every push to `main` redeploys in about a minute.
+No build step, no frameworks: plain HTML/CSS/JS in `docs/`, published to GitHub Pages by the
+"Build and deploy" workflow (Settings → Pages → Source: **GitHub Actions**). Every push to `main` runs
+the site checks and, if they pass, redeploys in about a minute.
 
 ## Structure
 
