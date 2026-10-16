@@ -14,3 +14,4 @@
 - [ ] New images have descriptive alt text and are under 500 KB
 - [ ] If "Coming Up" changed on `index.html`, `config.js` `activities` was updated to match
 - [ ] If an FAQ answer changed, the matching JSON-LD at the top of `faq.html` was updated too
+- [ ] Each changed page has today's date in `sitemap.xml` and in its "Page updated" line

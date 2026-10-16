@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- 404.html — served by GitHub Pages for unknown URLs at any depth, so all links are absolute to /pack1125-dumfries/. Update B paths if a custom domain is added. -->
+<!-- 404.html — served by GitHub Pages for unknown URLs at any depth, so all links are absolute to /pack1125-dumfries/. Update these paths if the site moves to its own domain. -->
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -10,8 +10,8 @@
   <meta name="robots" content="noindex, follow">
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta name="theme-color" content="#003366">
-  <!-- CSP: only this site, Google Fonts, and the Google Calendar embed; no inline scripts or styles. Add new embeds here on every page. -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; frame-src https://calendar.google.com; connect-src 'self'; base-uri 'self'; form-action 'none'; object-src 'none'; upgrade-insecure-requests">
+  <!-- CSP: only this site (fonts are self-hosted; the Google Calendar embed is allowed on calendar.html only); no inline scripts or styles. Add a new embed only on the page that uses it. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self' data:; frame-src 'none'; connect-src 'self'; base-uri 'self'; form-action 'none'; object-src 'none'; upgrade-insecure-requests">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Cub Scout Pack 1125">
   <meta property="og:locale" content="en_US">
@@ -30,9 +30,8 @@
   <link rel="apple-touch-icon" href="/pack1125-dumfries/images/icon-180.png">
   <link rel="manifest" href="/pack1125-dumfries/site.webmanifest">
   <!-- JSON-LD for search engines; not rendered. -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
+  <link rel="preload" href="/pack1125-dumfries/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/pack1125-dumfries/fonts/montserrat-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/pack1125-dumfries/style.css">
 </head>
 <body>

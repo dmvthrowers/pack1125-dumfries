@@ -9,8 +9,8 @@
   <meta name="robots" content="index, follow">
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta name="theme-color" content="#003366">
-  <!-- CSP: only this site, Google Fonts, and the Google Calendar embed; no inline scripts or styles. Add new embeds here on every page. -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; frame-src https://calendar.google.com; connect-src 'self'; base-uri 'self'; form-action 'none'; object-src 'none'; upgrade-insecure-requests">
+  <!-- CSP: only this site (fonts are self-hosted; the Google Calendar embed is allowed on calendar.html only); no inline scripts or styles. Add a new embed only on the page that uses it. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self' data:; frame-src 'none'; connect-src 'self'; base-uri 'self'; form-action 'none'; object-src 'none'; upgrade-insecure-requests">
   <link rel="canonical" href="https://dmvthrowers.club/pack1125-dumfries/privacy.html">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Cub Scout Pack 1125">
@@ -51,9 +51,8 @@
   ]
 }
   </script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
+  <link rel="preload" href="fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/montserrat-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -99,15 +98,14 @@
       <h2>What This Website Collects</h2>
       <p>Nothing directly. This site has no sign-up forms, no cookies, no analytics, and no
         advertising or tracking code.</p>
-      <p>A few outside services are involved in showing the site:</p>
+      <p>Everything else, including fonts and images, comes from this site itself. Two outside services are involved:</p>
       <ul>
         <li><strong>GitHub Pages</strong> hosts the site and may log basic technical data
           (such as IP addresses) for security, under the
           <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" rel="noopener noreferrer">GitHub Privacy Statement</a>.</li>
-        <li><strong>Google Fonts</strong> supplies the site's typefaces, so your browser requests
-          font files from Google.</li>
         <li><strong>Google Calendar</strong> powers the calendar on the
-          <a href="calendar.html">Calendar</a> page. Both Google services fall under the
+          <a href="calendar.html">Calendar</a> page. It loads only when you click &ldquo;Show the
+          Calendar&rdquo; there; until then, no page on this site contacts Google. It falls under the
           <a href="https://policies.google.com/privacy" rel="noopener noreferrer">Google Privacy Policy</a>.</li>
       </ul>
 
@@ -133,6 +131,7 @@
       <p class="fine-print">Last updated October 4, 2026.</p>
     </div>
   </section>
+  <p class="page-updated">Page updated <time datetime="2026-10-16">October 16, 2026</time></p>
 </main>
 
 <footer class="site-footer">

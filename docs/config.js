@@ -114,3 +114,23 @@ const CONFIG = {
     });
   });
 })();
+
+/* Calendar page: load the Google Calendar embed only when the visitor asks for it,
+   so no request goes to Google until then. Without JavaScript the button stays
+   hidden and the "Open in Google Calendar" link still works. */
+(function () {
+  document.addEventListener("DOMContentLoaded", function () {
+    var gate = document.getElementById("cal-gate");
+    var button = document.getElementById("cal-load");
+    if (!gate || !button) return;
+    button.hidden = false;
+    button.addEventListener("click", function () {
+      var frame = document.createElement("iframe");
+      frame.className = "cal-frame";
+      frame.title = "Pack 1125 calendar";
+      frame.src = gate.getAttribute("data-src");
+      gate.replaceWith(frame);
+      frame.focus();
+    });
+  });
+})();

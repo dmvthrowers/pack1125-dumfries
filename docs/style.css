@@ -3,7 +3,7 @@
    Static theme. Mobile-first, no frameworks, no build step.
    Palette: navy #003366 · gold #FFCC00 · red #CE1126 (accents)
             forest #0A4F39 · cream #FFFEF7
-   Type: Montserrat (headings), Inter (body) via Google Fonts
+   Type: Montserrat (headings), Inter (body), self-hosted in fonts/
    ============================================================ */
 
 :root {
@@ -24,6 +24,17 @@
   --shadow: 0 10px 30px -18px rgba(0, 51, 102, .35);
   --font-head: 'Montserrat', 'Segoe UI', system-ui, sans-serif;
   --font-body: 'Inter', 'Segoe UI', system-ui, sans-serif;
+}
+
+/* Self-hosted fonts (variable, Latin subset; SIL Open Font License, see fonts/LICENSE-*.txt).
+   Nothing is loaded from outside this site. */
+@font-face {
+  font-family: 'Inter'; font-style: normal; font-weight: 100 900; font-display: swap;
+  src: url(fonts/inter-latin.woff2) format('woff2');
+}
+@font-face {
+  font-family: 'Montserrat'; font-style: normal; font-weight: 100 900; font-display: swap;
+  src: url(fonts/montserrat-latin.woff2) format('woff2');
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -168,6 +179,7 @@ a:hover { color: var(--forest); }
 .page-head p { color: #dbe6f2; margin-bottom: 0; max-width: 640px; margin-left: auto; margin-right: auto; }
 
 /* ---------- Buttons ---------- */
+[hidden] { display: none !important; }   /* .btn's display must not override the hidden attribute */
 .btn {
   display: inline-block;
   font-family: var(--font-head);
@@ -409,9 +421,17 @@ figcaption { text-align: center; font-size: .85rem; color: var(--muted); margin-
 .prose li { margin-bottom: .4em; }
 
 /* ---------- Calendar fallback note ---------- */
+.cal-gate {
+  background: var(--white); border: 1px solid var(--line); border-radius: var(--radius);
+  box-shadow: var(--shadow); padding: 2rem 1.25rem; text-align: center;
+}
+.cal-gate h2 { margin-top: 0; }
+.btn-ghost { border-color: var(--navy); color: var(--navy); }
+.btn-ghost:hover { background: var(--gold-soft); color: var(--navy); }
 .cal-fallback { font-size: .9rem; color: var(--muted); text-align: center; margin-top: .75rem; }
 
 /* ---------- Small print ---------- */
+.page-updated { max-width: 1080px; margin: 0 auto; padding: 0 1.25rem 1.5rem; font-size: .85rem; color: var(--muted); }
 .fine-print { font-size: .85rem; color: var(--muted); }
 
 /* ---------- Row of buttons that wraps cleanly on phones ---------- */

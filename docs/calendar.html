@@ -9,8 +9,8 @@
   <meta name="robots" content="index, follow">
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta name="theme-color" content="#003366">
-  <!-- CSP: only this site, Google Fonts, and the Google Calendar embed; no inline scripts or styles. Add new embeds here on every page. -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; frame-src https://calendar.google.com; connect-src 'self'; base-uri 'self'; form-action 'none'; object-src 'none'; upgrade-insecure-requests">
+  <!-- CSP: only this site, plus the Google Calendar embed (loaded only after a click); fonts are self-hosted; no inline scripts or styles. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self' data:; frame-src https://calendar.google.com; connect-src 'self'; base-uri 'self'; form-action 'none'; object-src 'none'; upgrade-insecure-requests">
   <link rel="canonical" href="https://dmvthrowers.club/pack1125-dumfries/calendar.html">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Cub Scout Pack 1125">
@@ -51,9 +51,8 @@
   ]
 }
   </script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
+  <link rel="preload" href="fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/montserrat-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -97,9 +96,15 @@
 
   <section class="section">
     <div class="wrap">
-      <iframe class="cal-frame" title="Pack 1125 calendar"
-        src="https://calendar.google.com/calendar/embed?src=fa3adffd31279defe6498a672b5065eadfd8a49e248434efa24b5cd62d8e7af9%40group.calendar.google.com&ctz=America%2FNew_York"
-        loading="lazy"></iframe>
+      <!-- The calendar is a Google embed. It loads only when a visitor clicks the button
+           (config.js swaps this box for the iframe), so Google is not contacted otherwise. -->
+      <div class="cal-gate" id="cal-gate" data-src="https://calendar.google.com/calendar/embed?src=fa3adffd31279defe6498a672b5065eadfd8a49e248434efa24b5cd62d8e7af9%40group.calendar.google.com&ctz=America%2FNew_York">
+        <h2>Upcoming Pack Events</h2>
+        <p>Our calendar is hosted by Google. To keep this site free of outside services,
+          it loads only when you ask for it.</p>
+        <p class="btn-row"><button type="button" class="btn btn-navy" id="cal-load" hidden>Show the Calendar</button>
+          <a class="btn btn-ghost" href="https://calendar.google.com/calendar/embed?src=fa3adffd31279defe6498a672b5065eadfd8a49e248434efa24b5cd62d8e7af9%40group.calendar.google.com&ctz=America%2FNew_York" target="_blank" rel="noopener noreferrer">Open in Google Calendar</a></p>
+      </div>
       <p class="cal-fallback">Calendar not loading? The regular meeting schedule is below,
         or email <a href="mailto:admin@pack1125.org">admin@pack1125.org</a> for upcoming dates.</p>
 
@@ -128,6 +133,7 @@
       </div>
     </div>
   </section>
+  <p class="page-updated">Page updated <time datetime="2026-10-16">October 16, 2026</time></p>
 </main>
 
 <footer class="site-footer">

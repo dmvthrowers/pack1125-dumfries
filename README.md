@@ -14,15 +14,17 @@ the site checks and, if they pass, redeploys in about a minute.
 README.md            — this file (not published)
 CONTRIBUTING.md      — how to propose a change (pull requests, browser editing, photo rules)
 LICENSE              — code license + content/trademark exclusions
-scripts/check_site.py — site checker (links, images, metadata, nav, sitemap)
-.github/workflows/   — runs the checker on every push and pull request
+scripts/check_site.py  — site checker (links, images, metadata, nav, sitemap, freshness)
+scripts/check_links.py — outside-link checker (monthly)
+.github/workflows/   — check-site (every push and PR), deploy (main → GitHub Pages),
+                       check-links (1st of each month)
 .github/             — PR template, CODEOWNERS (reviewers), issue form for update requests
 docs/                — everything in here is the public website
 ├── index.html       — home: hero, four pillars, quick info, coming up
 ├── about.html       — what Cub Scouting is, about the pack, leadership
 ├── join.html        — who can join, 3 steps, dues, uniform
 ├── dens.html        — Lion → Arrow of Light den cards
-├── calendar.html    — Google Calendar embed + meeting rhythm
+├── calendar.html    — Google Calendar (loads on click) + meeting rhythm
 ├── gallery.html     — photo sets (images/gallery/) + "Coming Soon" placeholders
 ├── resources.html   — NCAC, Scoutbook Plus, financial aid, Scout Shop, training links
 ├── faq.html         — new-family FAQ (native <details> accordion + FAQPage JSON-LD)
@@ -30,10 +32,12 @@ docs/                — everything in here is the public website
 ├── privacy.html     — privacy & youth-protection photo policy (footer link only)
 ├── 404.html         — "page not found" (links are absolute: /pack1125-dumfries/…)
 ├── style.css        — full theme (navy/gold/forest/cream)
-├── config.js        — pack facts + mobile nav toggle
+├── config.js        — pack facts, mobile nav toggle, click-to-load calendar
+├── fonts/           — self-hosted Inter + Montserrat (WOFF2) and their licenses
 ├── images/          — pack emblem, rank badges (PNG + WebP), icons, social card
 ├── favicon.ico, site.webmanifest
-├── robots.txt, sitemap.xml
+├── robots.txt       — only used if the site moves to its own domain (see the file)
+├── sitemap.xml      — one <lastmod> per page; matches each page's "Page updated" line
 └── .nojekyll        — tells GitHub Pages to serve files as-is
 ```
 
@@ -55,7 +59,12 @@ to edit right in the browser. The **Check site** test runs on every PR.
   HTML pages — keep both in sync when facts change.
 - **Unknowns** are marked as `<!-- TBD: ... -->` HTML comments in the pages.
 - **Colors and fonts** are CSS variables at the top of `docs/style.css`.
-- **"Coming Up"** on `index.html` is hand-maintained — update it after each event.
+- **"Coming Up"** on `index.html` is hand-maintained — update it after each event. The same
+  events are listed as `Event` JSON-LD at the top of `index.html` (for Google and AI search);
+  add new ones there and remove past ones. The checker warns about past events.
+- **"Page updated"** at the bottom of each page must match that page's `<lastmod>` in
+  `sitemap.xml`. When you change a page, set both to today. On pull requests the checker
+  fails if a changed page still has an old date.
 - **Every page repeats** the same header, nav, and footer. When you add or rename a page,
   update the nav and footer links on every page (including the absolute links in `404.html`),
   plus `sitemap.xml`. The checker will tell you if you missed one.
@@ -65,9 +74,10 @@ to edit right in the browser. The **Check site** test runs on every PR.
   JSON-LD breadcrumb. Update them when you add a page. If the site moves to a new address
   (for example `pack1125.org`), search-and-replace `https://dmvthrowers.club/pack1125-dumfries/`
   across `docs/`, and update the `/pack1125-dumfries/` paths in `404.html`.
-- **Content Security Policy:** each page has a CSP `<meta>` tag allowing only this site,
-  Google Fonts, and the Google Calendar embed. Adding a new embed (form, video, map) means
-  adding its domain to that tag on every page that uses it.
+- **Content Security Policy:** each page has a CSP `<meta>` tag allowing only this site
+  (fonts are self-hosted in `docs/fonts/`); only `calendar.html` also allows the Google
+  Calendar frame. Adding a new embed (form, video, map) means adding its domain to that tag
+  on the page that uses it, and to the privacy page's list of outside services.
 - **Images:** add both a `.png` and a `.webp`, wrap them in `<picture>`, and always set
   `width`, `height`, and descriptive `alt` text. Keep files under 500 KB.
 
@@ -77,6 +87,10 @@ The Calendar page embeds the pack's Google Calendar. It only shows events to the
 calendar is shared publicly: in Google Calendar, open the pack calendar's **Settings and sharing →
 Access permissions for events → Make available to public** (choose "See all event details").
 Until then, signed-out visitors see a Google sign-in box instead of events.
+
+The embed loads only when a visitor clicks **Show the Calendar**, so no page contacts Google
+until then (see `config.js`). The calendar address lives in `calendar.html` (`data-src` and
+the "Open in Google Calendar" link) and in `config.js`; change all three together.
 
 ## Checks
 
@@ -89,8 +103,13 @@ for f in docs/*.js; do node --check "$f"; done   # JavaScript syntax (needs Node
 
 It checks every page for broken internal links and images, missing alt text or image sizes,
 invalid JSON-LD, missing titles/descriptions/canonical URLs, the skip link, nav and footer
-links, sitemap coverage, and files over 500 KB. The same check runs on GitHub after every push
-(Actions tab → "Check site").
+links, sitemap coverage, "Page updated" dates, and files over 500 KB. The same check runs on
+GitHub after every push (Actions tab → "Check site"). To run the pull-request date check
+locally: `BASE_SHA=origin/main python3 scripts/check_site.py`.
+
+Outside links (NCAC, Scouting America, forms) are checked on the 1st of each month
+(Actions → "Check outside links", or run `python3 scripts/check_links.py`). Only links that
+are clearly gone fail it; sites that block bots or time out are listed as warnings.
 
 ## Youth protection and photos
 

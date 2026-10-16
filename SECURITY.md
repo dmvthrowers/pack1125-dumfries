@@ -18,7 +18,7 @@ your message.
 ## What we do
 
 - Every page has a strict Content Security Policy: no inline scripts or styles, and outside
-  content limited to Google Fonts and the pack's Google Calendar.
+  content limited to the pack's Google Calendar on the Calendar page. Fonts are self-hosted.
 - Every change goes through a pull request and an automated check (`scripts/check_site.py`)
   that enforces those rules, plus link, image, and accessibility checks.
 - GitHub Actions are pinned to exact versions and kept current by Dependabot.
