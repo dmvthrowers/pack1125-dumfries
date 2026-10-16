@@ -57,8 +57,9 @@ const CONFIG = {
     time: "6:30–7:30 PM",
     season: "October–January",
     venue: "Covington-Harper Elementary School auditorium",
-    town: "Dumfries VA"
-    // NOTE: venue may change — keep the address as school name + Dumfries VA only.
+    town: "Dumfries VA",
+    address: "2500 River Heritage Blvd, Dumfries VA 22026"
+    // Public school address, shown on the site since Oct 2026. If the venue changes, update every page that lists it.
   },
 
   contact: {
