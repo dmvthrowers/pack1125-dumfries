@@ -89,9 +89,11 @@ const CONFIG = {
 
   activities: [
     { name: "Trick or Treat", when: "October 31, 2026 (location TBD)" },
+    { name: "Fall Camp Day — Prince William Forest Park", when: "November 1, 2026, 10:00 AM–4:30 PM (details coming soon; rain date TBD)" },
     { name: "Pack Meeting (Bottle Rocket STEM)", when: "November 5, 2026" },
     { name: "Holiday Potluck — Covington-Harper ES", when: "December 17, 2026" },
     { name: "Spring Overnight Campout — Camp Snyder", when: "May 14–16, 2027" },
+    { name: "Pinewood Derby — carving sessions and race day", when: "Dates coming soon" },
     { name: "Fall Camp Day — Prince William Forest Park", when: "October 3, 2026 (held)" }
   ],
 
