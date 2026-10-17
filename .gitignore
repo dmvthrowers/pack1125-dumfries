@@ -7,6 +7,10 @@ desktop.ini
 *.swp
 *~
 
+# Calendar sync output (made fresh by the deploy workflow)
+events.generated.json
+docs/calendar.ics
+
 # Local tooling
 node_modules/
 __pycache__/
