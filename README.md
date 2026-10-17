@@ -52,7 +52,7 @@ to edit right in the browser. The **Check site** test runs on every PR.
 - Bypass list: add **Repository admin** (so the owner can still fix an emergency).
 - Turn on: **Restrict deletions**, **Block force pushes**, **Require a pull request before
   merging** (1 required approval once a second reviewer is a collaborator; 0 until then),
-  and **Require status checks to pass** → add `check`.
+  and **Require status checks to pass** → add `check`, `validate` and `browser`.
 
 ## Editing
 
@@ -87,7 +87,9 @@ to edit right in the browser. The **Check site** test runs on every PR.
 The Calendar page embeds the pack's Google Calendar. It only shows events to the public if the
 calendar is shared publicly: in Google Calendar, open the pack calendar's **Settings and sharing →
 Access permissions for events → Make available to public** (choose "See all event details").
-Until then, signed-out visitors see a Google sign-in box instead of events.
+Until then, signed-out visitors see a Google sign-in box instead of events, and the "Add the pack calendar to your Google Calendar" link
+on the Calendar page fails for anyone the calendar isn't shared with. You can test it: while signed out, open
+`https://calendar.google.com/calendar/ical/<calendar id, with @ written as %40>/public/basic.ics`; a 404 means the calendar is still private.
 
 The embed loads only when a visitor clicks **Show the Calendar**, so no page contacts Google
 until then (see `config.js`). The calendar address lives in `calendar.html` (`data-src` and
@@ -102,11 +104,27 @@ python3 scripts/check_site.py
 for f in docs/*.js; do node --check "$f"; done   # JavaScript syntax (needs Node)
 ```
 
-It checks every page for broken internal links and images, missing alt text or image sizes,
+`check_site.py` checks every page for broken internal links and images, missing alt text or image sizes,
 invalid JSON-LD, missing titles/descriptions/canonical URLs, the skip link, nav and footer
-links, sitemap coverage, "Page updated" dates, and files over 500 KB. The same check runs on
-GitHub after every push (Actions tab → "Check site"). To run the pull-request date check
-locally: `BASE_SHA=origin/main python3 scripts/check_site.py`.
+links, sitemap coverage, "Page updated" dates, and files over 500 KB.
+
+Three checks run on GitHub for every pull request (Actions tab → "Check site"), and again before every
+deploy, so a push that fails any of them never reaches the live site:
+
+| Job | What it catches |
+| --- | --- |
+| `check` | Everything above: links, images, metadata, nav, sitemap, security rules, JavaScript syntax. |
+| `validate` | Invalid HTML, using the W3C Nu HTML Checker (the validator behind validator.w3.org). |
+| `browser` | Opens every page in Chromium at 360px (phone) and 1280px (desktop): no sideways scroll, no serious accessibility problems (axe), nothing loaded from outside the site, no Content Security Policy errors. |
+
+To run the pull-request date check locally: `BASE_SHA=origin/main python3 scripts/check_site.py`.
+To run the other two locally you need Java (validator) or Node with Playwright and axe-core (browser check):
+
+```sh
+npm install --prefix /tmp/vnu vnu-jar@26.10.7
+java -jar /tmp/vnu/node_modules/vnu-jar/build/dist/vnu.jar --errors-only --skip-non-html docs/*.html
+node scripts/check_browser.js
+```
 
 Outside links (NCAC, Scouting America, forms) are checked on the 1st of each month
 (Actions → "Check outside links", or run `python3 scripts/check_links.py`). Only links that

@@ -445,6 +445,7 @@ figcaption { text-align: center; font-size: .85rem; color: var(--muted); margin-
   box-shadow: var(--shadow); padding: 2rem 1.25rem; text-align: center;
 }
 .cal-gate h2 { margin-top: 0; }
+.cal-subscribe { font-size: .95rem; color: var(--muted); margin: 1rem 0 0; }
 .btn-ghost { border-color: var(--navy); color: var(--navy); }
 .btn-ghost:hover { background: var(--gold-soft); color: var(--navy); }
 .cal-fallback { font-size: .9rem; color: var(--muted); text-align: center; margin-top: .75rem; }
