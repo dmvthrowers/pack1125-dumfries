@@ -6,6 +6,8 @@ name: Build and deploy
 on:
   push:
     branches: [main]
+  schedule:
+    - cron: "41 6 * * *" # every morning, so calendar changes reach the site within a day
   workflow_dispatch:     # "Run workflow" button on the Actions tab
 
 permissions:
@@ -29,6 +31,19 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
+      # Optional. With a repository secret named CALENDAR_ICS_URL (the pack calendar's "Secret address in iCal
+      # format"), upcoming events are pulled from Google Calendar onto the Calendar page and into calendar.ics.
+      # This changes only this build's copy of docs/; nothing is committed. Without the secret it does nothing.
+      - name: Pull events from the pack calendar
+        env:
+          CALENDAR_ICS_URL: ${{ secrets.CALENDAR_ICS_URL }}
+          CALENDAR_TZ: ${{ vars.CALENDAR_TZ || 'America/New_York' }}
+          CALENDAR_SHOW_PLACES: ${{ vars.CALENDAR_SHOW_PLACES }}
+        run: |
+          python3 -m unittest discover -s scripts -p "test_*.py"
+          python3 scripts/sync_calendar.py
+          python3 scripts/publish_events.py
+          python3 scripts/check_site.py
       - name: Find the site address
         uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6.0.0
       - name: Package the site

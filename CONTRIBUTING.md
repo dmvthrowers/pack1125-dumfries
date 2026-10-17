@@ -48,6 +48,7 @@ should change. Someone with edit access will make the PR.
 ## For technical editors
 
 ```sh
+python3 -m unittest discover -s scripts -p "test_*.py"  # the calendar sync tests
 python3 scripts/check_site.py                       # links, images, metadata, nav, sitemap, "Page updated" dates
 for f in docs/*.js; do node --check "$f"; done      # JavaScript syntax
 cd docs && python3 -m http.server 8000              # preview at http://localhost:8000/

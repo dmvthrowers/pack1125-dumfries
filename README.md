@@ -25,7 +25,7 @@ docs/                — everything in here is the public website
 ├── join.html        — who can join, 3 steps, dues, uniform
 ├── families.html    — new families: first meeting, first month, forms, uniform basics
 ├── dens.html        — Lion → Arrow of Light den cards
-├── calendar.html    — Google Calendar (loads on click) + meeting rhythm
+├── calendar.html    — upcoming events (filled in at publish time), Google Calendar (loads on click), meeting rhythm
 ├── gallery.html     — photo sets (images/gallery/) + "Coming Soon" placeholders
 ├── resources.html   — NCAC, Scoutbook Plus, financial aid, Scout Shop, training links
 ├── faq.html         — new-family FAQ (native <details> accordion + FAQPage JSON-LD)
@@ -94,6 +94,33 @@ on the Calendar page fails for anyone the calendar isn't shared with. You can te
 The embed loads only when a visitor clicks **Show the Calendar**, so no page contacts Google
 until then (see `config.js`). The calendar address lives in `calendar.html` (`data-src` and
 the "Open in Google Calendar" link) and in `config.js`; change all three together.
+
+### Events on the page automatically (optional)
+
+The site can list the calendar's upcoming events on the Calendar page itself, with times, and offer them as a
+`calendar.ics` download. Visitors never contact Google; the pull happens when the site is published, every
+morning. It works even while the calendar is private.
+
+1. In Google Calendar, open the pack calendar's **Settings and sharing → Integrate calendar** and copy the
+   **Secret address in iCal format**. Treat it like a password.
+2. In this repository: **Settings → Secrets and variables → Actions → New repository secret**, named
+   `CALENDAR_ICS_URL`, with that address. (Optional, on the **Variables** tab: `CALENDAR_TZ`, default
+   `America/New_York`; `CALENDAR_SHOW_PLACES` = `true` to show each event's place.)
+3. **Actions → Build and deploy → Run workflow**. Calendar changes then show up within a day.
+
+What is used: each event's title, date, time and place only (places stay off unless `CALENDAR_SHOW_PLACES` is
+`true`). A description stays on the calendar unless it starts with `Public:`, then the rest is shown, so a
+phone number in the notes never leaks. Private and cancelled events are skipped. Repeating events (like every 1st
+and 3rd Thursday) are expanded, including moved ones. Without the secret, or if Google can't be reached, the page
+stays exactly as written in `docs/calendar.html`.
+
+How it works: `scripts/sync_calendar.py` reads the feed into `events.generated.json`, then
+`scripts/publish_events.py` fills the spot between the `events:start` and `events:end` comments in
+`docs/calendar.html` and writes `docs/calendar.ics`. This happens on the workflow's own copy of the files, so
+nothing is committed and the checks that run on pull requests see the page as written. The home page's "Coming Up"
+list and its Event data stay hand-written, because they carry notes a calendar doesn't. Try it locally with
+`python3 scripts/sync_calendar.py --file my.ics && python3 scripts/publish_events.py`, and run
+`git checkout docs/calendar.html && rm docs/calendar.ics` afterwards.
 
 ## Checks
 
