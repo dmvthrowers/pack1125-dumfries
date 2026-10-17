@@ -53,5 +53,9 @@ for f in docs/*.js; do node --check "$f"; done      # JavaScript syntax
 cd docs && python3 -m http.server 8000              # preview at http://localhost:8000/
 ```
 
+On every pull request, GitHub also validates the HTML (W3C checker) and opens each page in a browser at phone
+and desktop width to check for sideways scroll, accessibility problems and outside requests. The README's
+**Checks** section says how to run those locally.
+
 Work on a branch, open a PR against `main`, and keep `main` deployable. See the
 [README](README.md) for site structure and conventions.
