@@ -54,8 +54,11 @@ jobs:
 
   # Opens every page in a real browser at 360px (phone) and 1280px (desktop). See scripts/check_browser.js:
   # no sideways scroll, no serious accessibility problems (axe), nothing loaded from outside the site, no CSP errors.
+  # Pinned to 24.04: Playwright 1.56.1 cannot install Chromium on the ubuntu-latest
+  # (26.04) image ("Playwright does not support chromium on ubuntu26.04-x64"), which
+  # failed every Build and deploy run from Oct 24, 2026 until this pin.
   browser:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
